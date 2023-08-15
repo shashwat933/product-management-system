@@ -8,6 +8,10 @@ const Product = () => {
         })
     }
     const [error, seterror] = useState(false)
+    const [products, setProducts] = useState([]);
+    const [addProduct, setAddProduct] = useState(false);
+    const [updateProduct, setUpdateProduct] = useState(false);
+    const [value, setValue] = useState({});
     const addAProduct = (event) => {
         event.preventDefault();
 
@@ -59,10 +63,7 @@ const Product = () => {
             })
 
     }
-    const [products, setProducts] = useState([]);
-    const [addProduct, setAddProduct] = useState(false);
-    const [updateProduct, setUpdateProduct] = useState(false);
-    const [value, setValue] = useState({});
+
     useEffect(() => {
 
         fetch('http://localhost:8000/products')
@@ -175,7 +176,7 @@ const Product = () => {
                     <h1 style={{ marginBottom: 20 }}>Update Product</h1>
                     {error && <p style={{ color: 'red' }}>Enter correct details</p>}
                     <div className='form_container '>
-                      
+
                         <input type="text" value={value.name} className='form-control ' placeholder='Name' onChange={(event) => {
                             setValue((prevValue) => {
                                 return (
@@ -184,7 +185,7 @@ const Product = () => {
                             })
 
                         }} />
-                  
+
                         <input type="number" value={value.price} className='form-control' onChange={(event) => {
 
                             setValue((prevValue) => {
