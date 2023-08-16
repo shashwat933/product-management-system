@@ -15,30 +15,43 @@ app.use(express.json());
 
 app.use(cors());
 app.get('/products', async (req, res, next) => {
-    const products = await Product.find();
+    try {
+        const products = await Product.find();
 
-    res.send(products);
+        res.send(products);
+    } catch (error) {
+        console.log(error);
+    }
 });
 app.get('/products/:id', async (req, res, next) => {
-    const prodId = req.params.id;
-    const products = await Product.find({ _id: prodId });
-    res.send(products);
+    try {
+        const prodId = req.params.id;
+        const products = await Product.findById(prodId);
+        console.log(products);
+        res.send(products);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-app.post('/products', (req, res, next) => {
-    const product = new Product(req.body);
-    product.save()
-        .then(result => {
-            const data = JSON.stringify("POSTED DATA");
-            res.send(data);
-        })
+app.post('/products', async (req, res, next) => {
+    try {
+        const product = new Product(req.body);
+        await product.save()
+
+        const data = JSON.stringify("POSTED DATA");
+        res.send(data);
+
+    } catch (error) {
+        console.log(error)
+    }
 
 })
 
 app.delete('/products/:id', async (req, res, next) => {
     try {
         const prodId = req.params.id;
-        const result = await Product.deleteOne({ _id: prodId })
+        const result = await Product.findByIdAndDelete(prodId)
 
         res.send("Product deleted");
     }
@@ -51,8 +64,7 @@ app.put('/products/:id', async (req, res, next) => {
     try {
         const prodId = req.params.id;
         const data = req.body;
-        const result = await Product.updateOne({ _id: prodId }, { $set: data });// set is basically used to tell which fields we want to update
-
+        const result = await Product.updateOne({ _id: prodId }, { $set: data });
 
 
         res.send({ message: "Product updated" });
