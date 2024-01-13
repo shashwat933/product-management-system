@@ -19,8 +19,8 @@ The Product Management Website is a CRUD (Create, Read, Update, Delete) applicat
 
 To get started with the Product Management Website, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/product-management-website.git`
-2. Navigate to the project directory: `cd product-management-website`
+1. Clone the repository: `git clone https://github.com/your-username/product-management-system.git`
+2. Navigate to the project directory: `cd product-management-system`
 3. Install the dependencies: `npm install`
 4. Start the backend server: `npm start`
 5. Start the frontend development server: `npm start`
